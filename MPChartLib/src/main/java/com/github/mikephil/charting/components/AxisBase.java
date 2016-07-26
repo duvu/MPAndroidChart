@@ -102,10 +102,13 @@ public abstract class AxisBase extends ComponentBase {
      */
     protected List<LimitLine> mLimitLines;
 
+    protected List<PlotBand> mPlotBands;
+
     /**
      * flag indicating the limit lines layer depth
      */
     protected boolean mDrawLimitLineBehindData = false;
+    protected boolean mDrawPlotBandBehindData = false;
 
     /**
      * flag indicating that the axis-min value has been customized
@@ -140,6 +143,7 @@ public abstract class AxisBase extends ComponentBase {
         this.mXOffset = Utils.convertDpToPixel(5f);
         this.mYOffset = Utils.convertDpToPixel(5f);
         this.mLimitLines = new ArrayList<LimitLine>();
+        this.mPlotBands = new ArrayList<PlotBand>();
     }
 
     /**
@@ -384,6 +388,10 @@ public abstract class AxisBase extends ComponentBase {
         }
     }
 
+    public void addPlotBand(PlotBand band) {
+        mPlotBands.add(band);
+    }
+
     /**
      * Removes the specified LimitLine from the axis.
      *
@@ -393,6 +401,10 @@ public abstract class AxisBase extends ComponentBase {
         mLimitLines.remove(l);
     }
 
+    public void removePlotBand(PlotBand band) {
+        mPlotBands.remove(band);
+    }
+
     /**
      * Removes all LimitLines from the axis.
      */
@@ -400,6 +412,9 @@ public abstract class AxisBase extends ComponentBase {
         mLimitLines.clear();
     }
 
+    public void removeAllPlotBand() {
+        mPlotBands.clear();
+    }
     /**
      * Returns the LimitLines of this axis.
      *
@@ -409,6 +424,9 @@ public abstract class AxisBase extends ComponentBase {
         return mLimitLines;
     }
 
+    public List<PlotBand> getmPlotBands() {
+        return mPlotBands;
+    }
     /**
      * If this is set to true, the LimitLines are drawn behind the actual data,
      * otherwise on top. Default: false
@@ -419,8 +437,16 @@ public abstract class AxisBase extends ComponentBase {
         mDrawLimitLineBehindData = enabled;
     }
 
+    public void setDrawPlotBandsBehindData(boolean enabled) {
+        mDrawPlotBandBehindData = enabled;
+    }
+
     public boolean isDrawLimitLinesBehindDataEnabled() {
         return mDrawLimitLineBehindData;
+    }
+
+    public boolean isDrawPlotBandsBehindDataEnabled() {
+        return mDrawPlotBandBehindData;
     }
 
     /**

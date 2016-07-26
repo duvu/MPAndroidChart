@@ -6,8 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Path;
+import android.util.Log;
 
 import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.PlotBand;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.utils.FSize;
@@ -373,5 +375,48 @@ public class XAxisRenderer extends AxisRenderer {
                 c.drawText(label, position[0] - xOffset, mViewPortHandler.contentBottom() - yOffset, mLimitLinePaint);
             }
         }
+    }
+    protected float[] mRenderPlotBandsBuffer = new float[2];
+    @Override
+    public void renderPlotBands(Canvas c) {
+        List<PlotBand> plotBands = mXAxis.getmPlotBands();
+
+        if (plotBands == null || plotBands.size() <= 0) return;
+        float[] position = mRenderPlotBandsBuffer;
+        position[0] = 0;
+        position[1] = 0;
+        for (int i = 0; i < plotBands.size(); i++) {
+            PlotBand band = plotBands.get(i);
+
+            float lmax = band.getFrom() > band.getTo() ? band.getFrom() : band.getTo();
+            position[0] =lmax;
+            position[1] = 0.f;
+
+            if (!band.isEnabled()) {
+                continue;
+            }
+            mTrans.pointValuesToPixel(position);
+            renderPlotBand(c, band, position);
+        }
+    }
+    public void renderPlotBand(Canvas c, PlotBand band, float[] position) {
+        Log.i("ExtendChart", "XAxisRenderer plotband");
+//        mLimitLineSegmentsBuffer[0] = position[0];
+//        mLimitLineSegmentsBuffer[1] = mViewPortHandler.contentTop();
+//        mLimitLineSegmentsBuffer[2] = position[0];
+//        mLimitLineSegmentsBuffer[3] = mViewPortHandler.contentBottom();
+//
+//        mLimitLinePath.reset();
+//        mLimitLinePath.moveTo(mLimitLineSegmentsBuffer[0], mLimitLineSegmentsBuffer[1]);
+//        mLimitLinePath.lineTo(mLimitLineSegmentsBuffer[2], mLimitLineSegmentsBuffer[3]);
+
+        mPlotBandPaint.setStyle(Paint.Style.STROKE);
+        mPlotBandPaint.setColor(band.getColor());
+        mPlotBandPaint.setTextSize(20);
+        mPlotBandPaint.setColor(Color.RED);
+
+//        c.drawPath(mLimitLinePath, mLimitLinePaint);
+        c.drawRect(0, 0, 1000, 100, mPlotBandPaint);
+        c.drawText("Test", 0, 0, mPlotBandPaint);
     }
 }

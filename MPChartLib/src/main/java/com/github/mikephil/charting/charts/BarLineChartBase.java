@@ -240,6 +240,16 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         if (mAxisRight.isDrawLimitLinesBehindDataEnabled())
             mAxisRendererRight.renderLimitLines(canvas);
 
+        if (mXAxis.isDrawPlotBandsBehindDataEnabled()) {
+            mXAxisRenderer.renderPlotBands(canvas);
+        }
+
+        if (mAxisLeft.isDrawPlotBandsBehindDataEnabled())
+            mAxisRendererLeft.renderPlotBands(canvas);
+
+        if (mAxisRight.isDrawPlotBandsBehindDataEnabled())
+            mAxisRendererRight.renderPlotBands(canvas);
+
         mRenderer.drawData(canvas);
 
         // if highlighting is enabled
