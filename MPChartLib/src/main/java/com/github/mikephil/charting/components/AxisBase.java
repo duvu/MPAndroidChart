@@ -108,7 +108,6 @@ public abstract class AxisBase extends ComponentBase {
      * flag indicating the limit lines layer depth
      */
     protected boolean mDrawLimitLineBehindData = false;
-    protected boolean mDrawPlotBandBehindData = false;
 
     /**
      * flag indicating that the axis-min value has been customized
@@ -424,7 +423,7 @@ public abstract class AxisBase extends ComponentBase {
         return mLimitLines;
     }
 
-    public List<PlotBand> getmPlotBands() {
+    public List<PlotBand> getPlotBands() {
         return mPlotBands;
     }
     /**
@@ -437,16 +436,8 @@ public abstract class AxisBase extends ComponentBase {
         mDrawLimitLineBehindData = enabled;
     }
 
-    public void setDrawPlotBandsBehindData(boolean enabled) {
-        mDrawPlotBandBehindData = enabled;
-    }
-
     public boolean isDrawLimitLinesBehindDataEnabled() {
         return mDrawLimitLineBehindData;
-    }
-
-    public boolean isDrawPlotBandsBehindDataEnabled() {
-        return mDrawPlotBandBehindData;
     }
 
     /**

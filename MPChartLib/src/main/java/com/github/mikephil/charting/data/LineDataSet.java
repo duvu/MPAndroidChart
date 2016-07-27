@@ -7,6 +7,7 @@ import android.graphics.DashPathEffect;
 
 import com.github.mikephil.charting.formatter.DefaultFillFormatter;
 import com.github.mikephil.charting.formatter.FillFormatter;
+import com.github.mikephil.charting.renderer.MarkerRenderer;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
@@ -55,6 +56,8 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * formatter for customizing the position of the fill-line
      */
     private FillFormatter mFillFormatter = new DefaultFillFormatter();
+
+    private MarkerRenderer mMarkerRenderer = null;
 
     /**
      * if true, drawing circles is enabled
@@ -393,6 +396,15 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     @Override
     public FillFormatter getFillFormatter() {
         return mFillFormatter;
+    }
+
+    @Override
+    public MarkerRenderer getMarkerRenderer() {
+        return mMarkerRenderer;
+    }
+
+    public void setLineMarker(MarkerRenderer mMarkerRenderer) {
+        this.mMarkerRenderer = mMarkerRenderer;
     }
 
     public enum Mode {

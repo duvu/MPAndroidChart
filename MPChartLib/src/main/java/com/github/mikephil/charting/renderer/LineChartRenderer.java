@@ -563,6 +563,17 @@ public class LineChartRenderer extends LineRadarRenderer {
         drawCircles(c);
     }
 
+    private void drawMarker(Canvas canvas) {
+        List<ILineDataSet> dataSets = mChart.getLineData().getDataSets();
+
+        for (int i = 0; i < dataSets.size(); i++) {
+            ILineDataSet dataSet = dataSets.get(i);
+            if (!dataSet.isVisible() || dataSet.getEntryCount() == 0)
+                continue;
+            MarkerRenderer markerRenderer = dataSet.getMarkerRenderer();
+        }
+    }
+
     /**
      * cache for the circle bitmaps of all datasets
      */

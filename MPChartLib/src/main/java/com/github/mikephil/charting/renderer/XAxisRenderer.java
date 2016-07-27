@@ -379,7 +379,7 @@ public class XAxisRenderer extends AxisRenderer {
     protected float[] mRenderPlotBandsBuffer = new float[2];
     @Override
     public void renderPlotBands(Canvas c) {
-        List<PlotBand> plotBands = mXAxis.getmPlotBands();
+        List<PlotBand> plotBands = mXAxis.getPlotBands();
 
         if (plotBands == null || plotBands.size() <= 0) return;
         float[] position = mRenderPlotBandsBuffer;

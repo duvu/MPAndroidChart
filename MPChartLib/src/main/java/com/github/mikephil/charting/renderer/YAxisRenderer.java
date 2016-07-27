@@ -316,7 +316,7 @@ public class YAxisRenderer extends AxisRenderer {
     }
     @Override
     public void renderPlotBands(Canvas c) {
-        List<PlotBand> plotBands = mYAxis.getmPlotBands();
+        List<PlotBand> plotBands = mYAxis.getPlotBands();
         if (plotBands == null || plotBands.size() <= 0) {
             return;
         }

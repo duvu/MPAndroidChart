@@ -5,6 +5,7 @@ import android.graphics.DashPathEffect;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.FillFormatter;
+import com.github.mikephil.charting.renderer.MarkerRenderer;
 
 /**
  * Created by Philpp Jahoda on 21/10/15.
@@ -100,4 +101,6 @@ public interface ILineDataSet extends ILineRadarDataSet<Entry> {
      * @return
      */
     FillFormatter getFillFormatter();
+
+    MarkerRenderer getMarkerRenderer();
 }
