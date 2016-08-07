@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.PlotBand;
@@ -332,9 +331,8 @@ public class YAxisRenderer extends AxisRenderer {
 
     protected float[] mRenderPlotBandFromBuffer = new float[]{0, 0};
     protected float[] mRenderPlotBandToBuffer = new float[]{0, 0};
-    protected float[] mPlotBandSegmentBuffer = new float[2];
     public void renderPlotBand(Canvas c, PlotBand band) {
-        Log.i("ExtendChart", "YAxisRenderer plotband");
+        //Log.i("ExtendChart", "YAxisRenderer plotband");
         float[] position0 = mRenderPlotBandFromBuffer;
         float[] position1 = mRenderPlotBandToBuffer;
         position0[0] = 0f;
@@ -344,30 +342,10 @@ public class YAxisRenderer extends AxisRenderer {
 
         mTrans.pointValuesToPixel(position0);
         mTrans.pointValuesToPixel(position1);
-
         RectF r = new RectF(mViewPortHandler.contentLeft(), position1[1], mViewPortHandler.contentRight(), position0[1]);
-
-        //mTrans.rectValueToPixel(r);
-
-//        mPlotBandSegmentBuffer[0] = position[1];
-//        mPlotBandSegmentBuffer[1] = mViewPortHandler.contentLeft();
-
-//        mLimitLineSegmentsBuffer[0] = position[0];
-//        mLimitLineSegmentsBuffer[1] = mViewPortHandler.contentTop();
-//        mLimitLineSegmentsBuffer[2] = position[0];
-//        mLimitLineSegmentsBuffer[3] = mViewPortHandler.contentBottom();
-//
-//        mLimitLinePath.reset();
-//        mLimitLinePath.moveTo(mLimitLineSegmentsBuffer[0], mLimitLineSegmentsBuffer[1]);
-//        mLimitLinePath.lineTo(mLimitLineSegmentsBuffer[2], mLimitLineSegmentsBuffer[3]);
-
-//        rect.set(mViewPortHandler.contentLeft(), band.getFrom(), mViewPortHandler.contentRight(), band.getTo());
-
         mPlotBandPaint.setStyle(Paint.Style.FILL);
         mPlotBandPaint.setColor(band.getColor());
         mPlotBandPaint.setAlpha(band.getAlpha());
-
-//        c.drawPath(mLimitLinePath, mLimitLinePaint);
         c.drawRect(r, mPlotBandPaint);
     }
 }

@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Path;
-import android.util.Log;
+import android.graphics.RectF;
 
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.PlotBand;
@@ -380,43 +380,31 @@ public class XAxisRenderer extends AxisRenderer {
     @Override
     public void renderPlotBands(Canvas c) {
         List<PlotBand> plotBands = mXAxis.getPlotBands();
-
         if (plotBands == null || plotBands.size() <= 0) return;
-        float[] position = mRenderPlotBandsBuffer;
-        position[0] = 0;
-        position[1] = 0;
         for (int i = 0; i < plotBands.size(); i++) {
             PlotBand band = plotBands.get(i);
-
-            float lmax = band.getFrom() > band.getTo() ? band.getFrom() : band.getTo();
-            position[0] =lmax;
-            position[1] = 0.f;
-
             if (!band.isEnabled()) {
                 continue;
             }
-            mTrans.pointValuesToPixel(position);
-            renderPlotBand(c, band, position);
+            renderPlotBand(c, band);
         }
     }
-    public void renderPlotBand(Canvas c, PlotBand band, float[] position) {
-        Log.i("ExtendChart", "XAxisRenderer plotband");
-//        mLimitLineSegmentsBuffer[0] = position[0];
-//        mLimitLineSegmentsBuffer[1] = mViewPortHandler.contentTop();
-//        mLimitLineSegmentsBuffer[2] = position[0];
-//        mLimitLineSegmentsBuffer[3] = mViewPortHandler.contentBottom();
-//
-//        mLimitLinePath.reset();
-//        mLimitLinePath.moveTo(mLimitLineSegmentsBuffer[0], mLimitLineSegmentsBuffer[1]);
-//        mLimitLinePath.lineTo(mLimitLineSegmentsBuffer[2], mLimitLineSegmentsBuffer[3]);
-
-        mPlotBandPaint.setStyle(Paint.Style.STROKE);
+    protected float[] mRenderPlotBandFromBuffer = new float[]{0, 0};
+    protected float[] mRenderPlotBandToBuffer = new float[]{0, 0};
+    public void renderPlotBand(Canvas c, PlotBand band) {
+        //Log.i("ExtendChart", "XAxisRenderer plotband");
+        float[] position0 = mRenderPlotBandFromBuffer;
+        float[] position1 = mRenderPlotBandToBuffer;
+        position0[0] = 0f;
+        position0[1] = band.getFrom();
+        position1[0] = 0f;
+        position1[1] = band.getTo();
+        mTrans.pointValuesToPixel(position0);
+        mTrans.pointValuesToPixel(position1);
+        RectF r = new RectF(position1[1], mViewPortHandler.contentTop(), position0[1], mViewPortHandler.contentBottom());
+        mPlotBandPaint.setStyle(Paint.Style.FILL);
         mPlotBandPaint.setColor(band.getColor());
-        mPlotBandPaint.setTextSize(20);
-        mPlotBandPaint.setColor(Color.RED);
-
-//        c.drawPath(mLimitLinePath, mLimitLinePaint);
-        c.drawRect(0, 0, 1000, 100, mPlotBandPaint);
-        c.drawText("Test", 0, 0, mPlotBandPaint);
+        mPlotBandPaint.setAlpha(band.getAlpha());
+        c.drawRect(r, mPlotBandPaint);
     }
 }
