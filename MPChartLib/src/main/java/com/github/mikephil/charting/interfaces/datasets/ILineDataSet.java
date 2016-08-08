@@ -1,11 +1,11 @@
 package com.github.mikephil.charting.interfaces.datasets;
 
+import android.graphics.Bitmap;
 import android.graphics.DashPathEffect;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.FillFormatter;
-import com.github.mikephil.charting.renderer.MarkerRenderer;
 
 /**
  * Created by Philpp Jahoda on 21/10/15.
@@ -18,6 +18,11 @@ public interface ILineDataSet extends ILineRadarDataSet<Entry> {
      * @return
      */
     LineDataSet.Mode getMode();
+
+    /**
+     * Return true for drawing external marker
+     * */
+    boolean isDrawMarkerEnabled();
 
     /**
      * Returns the intensity of the cubic lines (the effect intensity).
@@ -102,5 +107,5 @@ public interface ILineDataSet extends ILineRadarDataSet<Entry> {
      */
     FillFormatter getFillFormatter();
 
-    MarkerRenderer getMarkerRenderer();
+    Bitmap getMarkerBitmap();
 }

@@ -2,12 +2,12 @@
 package com.github.mikephil.charting.data;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 
 import com.github.mikephil.charting.formatter.DefaultFillFormatter;
 import com.github.mikephil.charting.formatter.FillFormatter;
-import com.github.mikephil.charting.renderer.MarkerRenderer;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
@@ -57,12 +57,20 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      */
     private FillFormatter mFillFormatter = new DefaultFillFormatter();
 
-    private MarkerRenderer mMarkerRenderer = null;
-
     /**
      * if true, drawing circles is enabled
      */
     private boolean mDrawCircles = true;
+
+    /**
+     * bitmap for marker
+     * */
+    private Bitmap mMarkerBitmap = null;
+
+    /**
+     * if true, drawing marker is enabled
+     */
+    private boolean mDrawMarkers = false;
 
     private boolean mDrawCircleHole = true;
 
@@ -101,6 +109,8 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
         copied.mCircleColors = mCircleColors;
         copied.mDashPathEffect = mDashPathEffect;
         copied.mDrawCircles = mDrawCircles;
+        copied.mMarkerBitmap = mMarkerBitmap;
+        copied.mDrawMarkers = mDrawMarkers;
         copied.mDrawCircleHole = mDrawCircleHole;
         copied.mHighLightColor = mHighLightColor;
 
@@ -244,6 +254,26 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     @Override
     public boolean isDrawCirclesEnabled() {
         return mDrawCircles;
+    }
+
+
+    /**
+     * set this to true to enable the drawing of circle indicators for this
+     * DataSet, default true
+     *
+     * @param enabled
+     */
+    public void setDrawMarkers(boolean enabled) {
+        if (enabled) {
+            this.mDrawCircles = false;
+            this.mDrawCircleHole = false;
+        }
+        this.mDrawMarkers = enabled;
+    }
+
+    @Override
+    public boolean isDrawMarkerEnabled() {
+        return mDrawMarkers;
     }
 
     @Deprecated
@@ -398,13 +428,13 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
         return mFillFormatter;
     }
 
-    @Override
-    public MarkerRenderer getMarkerRenderer() {
-        return mMarkerRenderer;
+    public void setMarkerBitmap(Bitmap markerBitmap) {
+        this.mMarkerBitmap = markerBitmap;
     }
 
-    public void setLineMarker(MarkerRenderer mMarkerRenderer) {
-        this.mMarkerRenderer = mMarkerRenderer;
+    @Override
+    public Bitmap getMarkerBitmap() {
+        return mMarkerBitmap;
     }
 
     public enum Mode {

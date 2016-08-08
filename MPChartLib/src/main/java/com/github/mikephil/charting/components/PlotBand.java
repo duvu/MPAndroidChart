@@ -13,6 +13,8 @@ public class PlotBand extends ComponentBase{
     float from;
     float to;
 
+    //TODO may support text on background
+
     public PlotBand() {
         this.color = Color.LTGRAY;
         this.alpha = 128;
