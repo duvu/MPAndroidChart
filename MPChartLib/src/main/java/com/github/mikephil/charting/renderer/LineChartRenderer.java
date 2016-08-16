@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.charts.LineChart;
@@ -597,7 +596,6 @@ public class LineChartRenderer extends LineRadarRenderer {
 
 
     protected void drawMarkers(Canvas c, ILineDataSet dataSet) {
-        Log.i("DebugLineChartRenderer", "drawMarkers ...");
         Transformer trans = mChart.getTransformer(dataSet.getAxisDependency());
         mXBounds.set(mChart, dataSet);
         int boundsRangeCount = mXBounds.range + mXBounds.min;

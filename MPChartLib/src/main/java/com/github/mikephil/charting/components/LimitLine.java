@@ -1,6 +1,7 @@
 
 package com.github.mikephil.charting.components;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
@@ -30,6 +31,9 @@ public class LimitLine extends ComponentBase {
 
     /** label string that is drawn next to the limit line */
     private String mLabel = "";
+
+    /** icon for limit line*/
+    private Bitmap mLabelIon = null;
 
     /** the path effect of this LimitLine that makes dashed lines possible */
     private DashPathEffect mDashPathEffect = null;
@@ -210,5 +214,13 @@ public class LimitLine extends ComponentBase {
      */
     public String getLabel() {
         return mLabel;
+    }
+
+    public Bitmap getmLabelIon() {
+        return mLabelIon;
+    }
+
+    public void setmLabelIon(Bitmap mLabelIon) {
+        this.mLabelIon = mLabelIon;
     }
 }

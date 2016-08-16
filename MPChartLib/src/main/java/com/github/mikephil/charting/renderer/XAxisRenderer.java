@@ -1,6 +1,7 @@
 
 package com.github.mikephil.charting.renderer;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -319,8 +320,12 @@ public class XAxisRenderer extends AxisRenderer {
     private Path mLimitLinePath = new Path();
 
     public void renderLimitLineLine(Canvas c, LimitLine limitLine, float[] position) {
+        float txtSize = limitLine.getTextSize();
+        float iconSize = limitLine.getmLabelIon().getHeight();
+        float size = txtSize < iconSize ? iconSize : txtSize;
+
         mLimitLineSegmentsBuffer[0] = position[0];
-        mLimitLineSegmentsBuffer[1] = mViewPortHandler.contentTop();
+        mLimitLineSegmentsBuffer[1] = mViewPortHandler.contentTop() - 10;
         mLimitLineSegmentsBuffer[2] = position[0];
         mLimitLineSegmentsBuffer[3] = mViewPortHandler.contentBottom();
 
@@ -338,6 +343,7 @@ public class XAxisRenderer extends AxisRenderer {
 
     public void renderLimitLineLabel(Canvas c, LimitLine limitLine, float[] position, float yOffset) {
         String label = limitLine.getLabel();
+        Bitmap icon = limitLine.getmLabelIon();
 
         // if drawing the limit-value label is enabled
         if (label != null && !label.equals("")) {
@@ -350,6 +356,10 @@ public class XAxisRenderer extends AxisRenderer {
 
 
             float xOffset = limitLine.getLineWidth() + limitLine.getXOffset();
+            float xIconWidth = icon != null ? icon.getWidth() : 0;
+            float xIconHeight = icon != null ? icon.getHeight() : 0;
+            float txtSize = limitLine.getTextSize();
+            float iconYOffset = (xIconHeight + txtSize) / 2;
 
             final LimitLine.LimitLabelPosition labelPosition = limitLine.getLabelPosition();
 
@@ -357,26 +367,36 @@ public class XAxisRenderer extends AxisRenderer {
 
                 final float labelLineHeight = Utils.calcTextHeight(mLimitLinePaint, label);
                 mLimitLinePaint.setTextAlign(Align.LEFT);
-                c.drawText(label, position[0] + xOffset, mViewPortHandler.contentTop() + yOffset + labelLineHeight,
-                        mLimitLinePaint);
+                if (icon != null) {
+                    c.drawBitmap(icon, position[0] + xOffset, mViewPortHandler.contentTop() + yOffset + labelLineHeight, mLimitLinePaint);
+                }
+                c.drawText(label, position[0] + xOffset + xIconWidth, mViewPortHandler.contentTop() + yOffset + labelLineHeight + iconYOffset, mLimitLinePaint);
             } else if (labelPosition == LimitLine.LimitLabelPosition.RIGHT_BOTTOM) {
 
                 mLimitLinePaint.setTextAlign(Align.LEFT);
-                c.drawText(label, position[0] + xOffset, mViewPortHandler.contentBottom() - yOffset, mLimitLinePaint);
+                if (icon != null) {
+                    c.drawBitmap(icon, position[0] + xOffset, mViewPortHandler.contentBottom() - yOffset, mLimitLinePaint);
+                }
+                c.drawText(label, position[0] + xOffset + xIconWidth, mViewPortHandler.contentBottom() - yOffset + iconYOffset, mLimitLinePaint);
             } else if (labelPosition == LimitLine.LimitLabelPosition.LEFT_TOP) {
 
                 mLimitLinePaint.setTextAlign(Align.RIGHT);
                 final float labelLineHeight = Utils.calcTextHeight(mLimitLinePaint, label);
-                c.drawText(label, position[0] - xOffset, mViewPortHandler.contentTop() + yOffset + labelLineHeight,
+                if (icon != null) {
+                    c.drawBitmap(icon, position[0] - xOffset - xIconWidth, mViewPortHandler.contentTop() + yOffset + labelLineHeight, mLimitLinePaint);
+                }
+                c.drawText(label, position[0] - xOffset - xIconWidth, mViewPortHandler.contentTop() + yOffset + labelLineHeight + iconYOffset,
                         mLimitLinePaint);
             } else {
 
                 mLimitLinePaint.setTextAlign(Align.RIGHT);
-                c.drawText(label, position[0] - xOffset, mViewPortHandler.contentBottom() - yOffset, mLimitLinePaint);
+                if (icon != null) {
+                    c.drawBitmap(icon, position[0] - xOffset + xIconWidth, mViewPortHandler.contentBottom() - yOffset, mLimitLinePaint);
+                }
+                c.drawText(label, position[0] - xOffset, mViewPortHandler.contentBottom() - yOffset + iconYOffset, mLimitLinePaint);
             }
         }
     }
-    protected float[] mRenderPlotBandsBuffer = new float[2];
     @Override
     public void renderPlotBands(Canvas c) {
         List<PlotBand> plotBands = mXAxis.getPlotBands();
