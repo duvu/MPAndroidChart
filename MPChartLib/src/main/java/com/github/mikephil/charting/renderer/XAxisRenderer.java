@@ -346,7 +346,7 @@ public class XAxisRenderer extends AxisRenderer {
         Bitmap icon = limitLine.getmLabelIon();
 
         // if drawing the limit-value label is enabled
-        if (label != null && !label.equals("")) {
+        if (label != null /*&& !label.equals("")*/ || icon != null) {
 
             mLimitLinePaint.setStyle(limitLine.getTextStyle());
             mLimitLinePaint.setPathEffect(null);
@@ -368,7 +368,7 @@ public class XAxisRenderer extends AxisRenderer {
                 final float labelLineHeight = Utils.calcTextHeight(mLimitLinePaint, label);
                 mLimitLinePaint.setTextAlign(Align.LEFT);
                 if (icon != null) {
-                    c.drawBitmap(icon, position[0] + xOffset, mViewPortHandler.contentTop() + yOffset + labelLineHeight, mLimitLinePaint);
+                    c.drawBitmap(icon, position[0] + xOffset, mViewPortHandler.contentTop() + yOffset + xIconHeight/2, mLimitLinePaint);
                 }
                 c.drawText(label, position[0] + xOffset + xIconWidth, mViewPortHandler.contentTop() + yOffset + labelLineHeight + iconYOffset, mLimitLinePaint);
             } else if (labelPosition == LimitLine.LimitLabelPosition.RIGHT_BOTTOM) {
@@ -383,7 +383,7 @@ public class XAxisRenderer extends AxisRenderer {
                 mLimitLinePaint.setTextAlign(Align.RIGHT);
                 final float labelLineHeight = Utils.calcTextHeight(mLimitLinePaint, label);
                 if (icon != null) {
-                    c.drawBitmap(icon, position[0] - xOffset - xIconWidth, mViewPortHandler.contentTop() + yOffset + labelLineHeight, mLimitLinePaint);
+                    c.drawBitmap(icon, position[0] - xOffset - xIconWidth, mViewPortHandler.contentTop() + yOffset + xIconHeight/2, mLimitLinePaint);
                 }
                 c.drawText(label, position[0] - xOffset - xIconWidth, mViewPortHandler.contentTop() + yOffset + labelLineHeight + iconYOffset,
                         mLimitLinePaint);
