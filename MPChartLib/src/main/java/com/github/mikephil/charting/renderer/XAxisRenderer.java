@@ -204,6 +204,7 @@ public class XAxisRenderer extends AxisRenderer {
             if (mViewPortHandler.isInBoundsX(x)) {
 
                 String label = mXAxis.getValueFormatter().getFormattedValue(mXAxis.mEntries[i / 2], mXAxis);
+                String label2 = mXAxis.getValueFormatter().getFormattedValue2(mXAxis.mEntries[i / 2], mXAxis);
 
                 if (mXAxis.isAvoidFirstLastClippingEnabled()) {
 
@@ -223,7 +224,12 @@ public class XAxisRenderer extends AxisRenderer {
                     }
                 }
 
-                drawLabel(c, label, x, pos, anchor, labelRotationAngleDegrees);
+                if (label2 != null) {
+                    drawLabel(c, label, x, pos - 30, anchor, labelRotationAngleDegrees);
+                    drawLabel(c, label2, x, pos - 10, anchor, labelRotationAngleDegrees);
+                } else {
+                    drawLabel(c, label, x, pos, anchor, labelRotationAngleDegrees);
+                }
             }
         }
     }

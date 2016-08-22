@@ -47,6 +47,11 @@ public class DefaultAxisValueFormatter implements AxisValueFormatter {
     }
 
     @Override
+    public String getFormattedValue2(float value, AxisBase axis) {
+        return null;
+    }
+
+    @Override
     public int getDecimalDigits() {
         return digits;
     }

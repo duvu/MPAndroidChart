@@ -57,6 +57,11 @@ public class LargeValueFormatter implements ValueFormatter, AxisValueFormatter {
         return makePretty(value) + mText;
     }
 
+    @Override
+    public String getFormattedValue2(float value, AxisBase axis) {
+        return null;
+    }
+
     /**
      * Set an appendix text to be added at the end of the formatted value.
      *
