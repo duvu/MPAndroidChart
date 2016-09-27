@@ -1,5 +1,7 @@
 package com.github.mikephil.charting.renderer;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
@@ -85,8 +87,14 @@ public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
             float low = chart.getLowestVisibleX();
             float high = chart.getHighestVisibleX();
 
+            Log.i("LineChart", "low: " + (long)low);
+            Log.i("LineChart", "hight" + (long)high);
+
             Entry entryFrom = dataSet.getEntryForXPos(low, DataSet.Rounding.DOWN);
             Entry entryTo = dataSet.getEntryForXPos(high, DataSet.Rounding.UP);
+
+            Log.i("LineChart", "From: " + (long) entryFrom.getX());
+            Log.i("LineChart", "To: " + (long) entryTo.getX());
 
             min = dataSet.getEntryIndex(entryFrom);
             max = dataSet.getEntryIndex(entryTo);

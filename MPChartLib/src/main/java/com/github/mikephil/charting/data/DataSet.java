@@ -1,6 +1,8 @@
 
 package com.github.mikephil.charting.data;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -260,22 +262,41 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     @Override
     public int getEntryIndex(float xPos, Rounding rounding) {
 
+        Log.i("LineChart", "xPos: " + (long)xPos);
+
         if (mValues == null || mValues.isEmpty())
             return -1;
 
         int low = 0;
         int high = mValues.size() - 1;
 
+//        Log.i("LineChart", "DataSet Low: " + low);
+//        Log.i("LineChart", "DataSet High: " + high);
+
+
         while (low < high) {
             int m = (low + high) / 2;
+
+//            Log.i("LineChart", "MIndex" + m);
+//            Log.i("LineChart", "MValue: " + mValues.get(m).getX());
 
             float d1 = Math.abs(mValues.get(m).getX() - xPos);
             float d2 = Math.abs(mValues.get(m + 1).getX() - xPos);
 
-            if (d2 <= d1) {
+//            Log.i("LineChart", "d1/d2: " + (long)d1 + "/" + (long)d2);
+            if (d2 < d1) {
                 low = m + 1;
-            } else {
+            } else if (d2 > d1){
                 high = m;
+            } else {
+                //d2==d1
+                if (rounding == Rounding.UP) {
+                    //get high
+                    low = m+1;
+                } else if (rounding == Rounding.DOWN) {
+                    //get low
+                    high = m;
+                }
             }
         }
 
