@@ -87,7 +87,7 @@ public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
             float low = chart.getLowestVisibleX();
             float high = chart.getHighestVisibleX();
 
-            Log.i("LineChart", "low: " + (long)low);
+            Log.i("LineChart", "low" + (long)low);
             Log.i("LineChart", "hight" + (long)high);
 
             Entry entryFrom = dataSet.getEntryForXPos(low, DataSet.Rounding.DOWN);

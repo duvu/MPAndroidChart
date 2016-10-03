@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.charts.LineChart;
@@ -367,10 +366,6 @@ public class LineChartRenderer extends LineRadarRenderer {
             e1 = dataSet.getEntryForIndex(mXBounds.min);
 
             if (e1 != null) {
-                Log.i("LineChart", "Mode: LINEAR1");
-                Log.i("LineChart", "Size: " + dataSet.getEntryCount());
-                Log.i("LineChart", "mXBounds.min: " + mXBounds.min);
-                Log.i("LineChart", "mXBounds.range: " + mXBounds.range);
                 int j = 0;
                 for (int x = mXBounds.min; x <= mXBounds.range + mXBounds.min; x++) {
 
